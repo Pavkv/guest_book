@@ -21,7 +21,7 @@ class GuestBook {
 
   function get ($pid) {
     $this->stmt = $this->pdo->prepare(
-      "SELECT * FROM guestbook WHERE 'post_id'=?"
+      "SELECT * FROM guestbook WHERE post_id=?"
     );
     $this->stmt->execute([$pid]);
     return $this->stmt->fetchall(PDO::FETCH_NAMED);
@@ -31,7 +31,7 @@ class GuestBook {
     if ($date==null) { $date = date("Y-m-d H:i:s"); }
     try {
       $this->stmt = $this->pdo->prepare(
-        "REPLACE INTO guestbook ('post_id', 'name', 'comment', 'datetime') VALUES (?,?,?,?)"
+        "INSERT INTO guestbook (post_id, name, comment, datetime) VALUES (?,?,?,?)"
       );
       $this->stmt->execute([$pid, $name, $comment, $date]);
     } catch (Exception $ex) {
@@ -43,7 +43,6 @@ class GuestBook {
 }
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'guest_book');
-define('DB_CHARSET', 'utf8');
 define('DB_USER', 'pavkv');
 define('DB_PASSWORD', '8421537690');
 $_GB = new GuestBook();

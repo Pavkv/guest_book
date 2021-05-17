@@ -1,13 +1,22 @@
+<?php
+if(isset($_GET['view'])) header('Location: v_page.php');
+?>
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DEMO GUEST BOOK PAGE</title>
-    <link rel="stylesheet" href="4-page.css"/>
+    <title>GUEST BOOK</title>
+    <link rel="stylesheet" href="style.css"/>
   </head>
   <body>
     <?php
-    require "2-core.php";
-    $pid = 1;
+    require "core.php";
+    $db = pg_connect("host=localhost dbname=guest_book user=pavkv password=8421537690") or die("Can't connect to database".pg_last_error());
+    $pid = 0;
+    $query = "SELECT max(post_id) FROM guestbook";
+    $result = pg_query($db, $query) or die("Can't find data: " . pg_last_error());
+    if ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
+        foreach ($line as $value) $pid = $value + 1;
+    }
     $_GB = new GuestBook();
     if (isset($_POST['name'])) {
       if ($_GB->save($pid, $_POST['name'], $_POST['comment'])) {
@@ -35,11 +44,12 @@
     <form method="post" target="_self" id="gb-form">
       <label for="name">Name:</label>
       <input type="text" name="name" required/>
-      <label for="email">Email:</label>
-      <input type="email" name="email" required/>
       <label for="comment">Comment:</label>
       <textarea name="comment" required></textarea>
       <input type="submit" value="Sign Guestbook"/>
+    </form>
+    <form method="get" target="_self" id="gb-form">
+        <input type="submit" value="View all entries" name="view"/>
     </form>
   </body>
 </html>
