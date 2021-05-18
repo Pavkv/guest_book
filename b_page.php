@@ -12,6 +12,7 @@ $nm = $_SESSION['nams'];
   <body>
     <?php
     require "core.php";
+    include('emoji.php');
     $db = pg_connect("host=localhost dbname=guest_book user=pavkv password=8421537690") or die("Can't connect to database".pg_last_error());
     $pid = 0;
     $query = "SELECT max(post_id) FROM guestbook";
@@ -19,9 +20,12 @@ $nm = $_SESSION['nams'];
     if ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
         foreach ($line as $value) $pid = $value + 1;
     }
+
     $_GB = new GuestBook();
     if (isset($_POST['go'])) {
-      if ($_GB->save($pid, $nm, $_POST['comment'])) {
+        $str = $_POST['comment'];
+        $strn = Smilify($str);
+      if ($_GB->save($pid, $nm, $str)) {
         echo "<div>Guest Book Entry Saved</div>";
       } else {
         echo "<div>$_GB->error</div>";
@@ -44,8 +48,6 @@ $nm = $_SESSION['nams'];
     <?php }} ?></div>
 
     <form method="post" target="_self" id="gb-form">
-        <div class="emojis-container emojis-container_hidden" id="emojis"></div>
-        <img src="emojis/happy.png" class="emoji-img" id="emoji-button">
       <label for="comment">Comment:</label>
       <textarea name="comment" required></textarea>
       <input type="submit" value="Sign Guestbook" name="go"/>
