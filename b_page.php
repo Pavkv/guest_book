@@ -1,5 +1,7 @@
 <?php
 if(isset($_GET['view'])) header('Location: v_page.php');
+session_start();
+$nm = $_SESSION['nams'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,8 +20,8 @@ if(isset($_GET['view'])) header('Location: v_page.php');
         foreach ($line as $value) $pid = $value + 1;
     }
     $_GB = new GuestBook();
-    if (isset($_POST['name'])) {
-      if ($_GB->save($pid, $_POST['name'], $_POST['comment'])) {
+    if (isset($_POST['go'])) {
+      if ($_GB->save($pid, $nm, $_POST['comment'])) {
         echo "<div>Guest Book Entry Saved</div>";
       } else {
         echo "<div>$_GB->error</div>";
@@ -42,11 +44,11 @@ if(isset($_GET['view'])) header('Location: v_page.php');
     <?php }} ?></div>
 
     <form method="post" target="_self" id="gb-form">
-      <label for="name">Name:</label>
-      <input type="text" name="name" required/>
+        <div class="emojis-container emojis-container_hidden" id="emojis"></div>
+        <img src="emojis/happy.png" class="emoji-img" id="emoji-button">
       <label for="comment">Comment:</label>
       <textarea name="comment" required></textarea>
-      <input type="submit" value="Sign Guestbook"/>
+      <input type="submit" value="Sign Guestbook" name="go"/>
     </form>
     <form method="get" target="_self" id="gb-form">
         <input type="submit" value="View all entries" name="view"/>

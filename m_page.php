@@ -43,7 +43,11 @@ if (isset($_POST['login'])){
         echo 'Check the correctness of entered data';
     }
     elseif($admin) header('Location: a_page.php');
-    else header('Location: b_page.php');
+    else {
+        session_start();
+        $_SESSION['nams'] = $name;
+        header('Location: b_page.php');
+    }
 
 }
 if (isset($_POST['sign'])) {

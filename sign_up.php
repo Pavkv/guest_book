@@ -18,6 +18,8 @@ if(isset($_POST['sign'])){
     if($namecheck){
         $query1 = "INSERT INTO users (username, password, user_id) VALUES ('".$name."', '".$pasw."', '".$k."')";
         $result1 = pg_query($db, $query1) or die("Can't add new data: " . pg_last_error());
+        session_start();
+        $_SESSION['nams'] = $name;
         header('Location: b_page.php');
     }
     else echo 'This username already exists';
