@@ -27,9 +27,10 @@ if (isset($_POST['login'])){
             foreach ($line as $value){
                 if ($i == 0) {$usr = $value; $i++; continue;}
                 if ($i == 1) {$pwd = $value; $i++; continue;}
-                if ($i == 2 && $value == 1) {$admin = true; $i++;}
-                else $i++;
-                if ($i == 3) {
+                if ($i == 2 && $value == 1) {$admin = true; $i++; continue;}
+                elseif($i == 2 && $value != 1) {$i++; continue;}
+                if ($i == 3) $i++;
+                if ($i == 4) {
                     if($name == $usr && $pasw == $pwd && $admin) $login_successful = true;
                     if ($name == $usr && $pasw == $pwd && !$admin) $login_successful = true;
                     $i = 0;
