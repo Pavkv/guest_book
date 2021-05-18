@@ -25,6 +25,7 @@ while ($pid >= $i){
     <div id="gb-entries">
         <?php if (count($entries)>0) { foreach ($entries as $e) { ?>
             <div class="gb-row">
+                <button class="deletebutton"></button>
                 <div class="gb-datetime"><?=$e['datetime']?></div>
                 <div class="gb-name">
                     <span class="gb-name-a"><?=$e['name']?></span>
