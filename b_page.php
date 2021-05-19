@@ -24,7 +24,7 @@ $nm = $_SESSION['nams'];
     $_GB = new GuestBook();
     if (isset($_POST['go'])) {
         $str = $_POST['comment'];
-        $strn = Smilify($str);
+        Smilify($str);
       if ($_GB->save($pid, $nm, $str)) {
         echo "<div>Guest Book Entry Saved</div>";
       } else {
