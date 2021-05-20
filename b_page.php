@@ -43,12 +43,7 @@ $f = 0;
         echo "<div>$_GB->error</div>";
       }
     }
-    $pid = 0;
-    $query = "SELECT max(post_id) FROM guestbook";
-    $result = pg_query($db, $query) or die("Can't find data: " . pg_last_error());
-    if ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
-        foreach ($line as $value) $pid = $value;
-    }
+    $pid--;
     $s = 1;
     $k = 1;
     while ($pid >= $s){
