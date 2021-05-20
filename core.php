@@ -48,6 +48,18 @@ class GuestBook {
     }
     return true;
   }
+  function save2($usr, $password, $uid, $dta){
+      try {
+          $this->stmt = $this->pdo->prepare(
+              "INSERT INTO users (username, password, user_id, data) VALUES (?,?,?,?)"
+          );
+          $this->stmt->execute([$usr, $password, $uid, $dta]);
+      } catch (Exception $ex) {
+          $this->error = $ex->getMessage();
+          return false;
+      }
+      return true;
+  }
 }
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'guest_book');
