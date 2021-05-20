@@ -1,6 +1,7 @@
 <?php
 require "core.php";
 include('emoji.php');
+$_GB = new GuestBook();
 $db = pg_connect("host=localhost dbname=guest_book user=pavkv password=8421537690") or die("Can't connect to database".pg_last_error());
 if (isset($_GET['delete'])) {
     $i = $_GET['delete'];
@@ -34,7 +35,6 @@ $f = 0;
         foreach ($line as $value) $pid = $value + 1;
     }
 
-    $_GB = new GuestBook();
     if (isset($_POST['go'])) {
         $str = $_POST['comment'];
       if ($_GB->save($pid, $nm, $str)) {
@@ -49,7 +49,6 @@ $f = 0;
     if ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
         foreach ($line as $value) $pid = $value;
     }
-    $_GB = new GuestBook();
     $s = 1;
     $k = 1;
     while ($pid >= $s){
