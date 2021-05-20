@@ -24,7 +24,6 @@ $nm = $_SESSION['nams'];
     $_GB = new GuestBook();
     if (isset($_POST['go'])) {
         $str = $_POST['comment'];
-        Smilify($str);
       if ($_GB->save($pid, $nm, $str)) {
         echo "<div>Guest Book Entry Saved</div>";
       } else {
@@ -43,7 +42,7 @@ $nm = $_SESSION['nams'];
         <span class="gb-name-a"><?=$e['name']?></span>
         <span class="gb-name-b">signed:</span>
       </div>
-      <div class="gb-comment"><?=$e['comment']?></div>
+      <div class="gb-comment"><?php $str = $e['comment']; Smilify($str); echo $str;?></div>
     </div>
     <?php }} ?></div>
 

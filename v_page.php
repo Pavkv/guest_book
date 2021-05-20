@@ -16,7 +16,6 @@ if (isset($_GET['delete'])) {
 if(isset($_GET['edited'])){
     $text = $_GET['text'];
     $i = $_GET['text2'];
-    Smilify($text);
     $query3 = "UPDATE guestbook SET comment = '".$text."' WHERE post_id ='".$i."'";
     $result3 = pg_query($db, $query3) or die("Can't find data: " . pg_last_error());
 }
@@ -53,7 +52,7 @@ while ($pid >= $s){
                         <span class="gb-name-a"><?=$e['name']?></span>
                         <span class="gb-name-b">signed:</span>
                     </div>
-                    <div class="gb-comment"><?=$e['comment']?></div>
+                    <div class="gb-comment"><?php $str = $e['comment']; Smilify($str); echo $str;?></div>
                 </div>
         <?php }} ?></div>
     </form><?php
@@ -62,11 +61,7 @@ while ($pid >= $s){
 }?>
 <form method="get" target="_self" id="gb-form" style="<?php if(!isset($_GET['edit']) || isset($_GET['canceled'])) echo 'display:none'?>">
     <input type="hidden" name="text2" value="<?php echo $_GET['edit']; ?>"/><input type="text" name="text" value="<?php  $entries = $_GB->get($_GET['edit']); if (count($entries)>0)
-    { foreach ($entries as $e) { $str = $e['comment']; if(stristr($str, '<')){$strn = explode('<', $str);
-        $strnn = explode('>', $strn[1]);
-        $strnnn = explode(' ', $strnn[0]);
-        foreach ($strnnn as $s){if(stristr($s, 'alt')){$sn = explode('"', $s); $i = $strn[0] . $sn[1]; echo $i;}}}
-    else echo $str;}}?>">
+    { foreach ($entries as $e) { echo $e['comment']; }}?>">
     <input type="submit" value="Save" name="edited">
     <input type="submit" value="Cancel" name="canceled">
 </form>
