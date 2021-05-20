@@ -52,10 +52,12 @@ $f = 0;
         <div id='gb-entries'>
             <?php if (count($entries)>0) { foreach ($entries as $e) { ?>
                 <div class="gb-row">
-                    <?php if ($e['name'] == $nm) {?>
+                    <?php $entries2 = $_GB->get2(1);
+                    if (count($entries2)>0) { foreach ($entries2 as $e2) {
+                    if ($e['name'] == $nm || $e2['data'] == 'admin') {?>
                         <button type="submit" class="deletebutton" name="delete" value="<?php echo $k?>"></button>
                         <button type="submit" class="editbutton" name="edit" value="<?php echo $k?>"></button>
-                    <?php }?>
+                    <?php }}}?>
                     <div class="gb-datetime"><?=$e['datetime']?></div>
                     <div class="gb-name">
                         <span class="gb-name-a"><?=$e['name']?></span>

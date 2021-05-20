@@ -53,6 +53,12 @@ if(isset($_POST['go'])){
     }
     unset($_POST['go']);
 }
+if(isset($_POST['login'])){
+    header('Location: m_page.php');
+}
+if(isset($_POST['main'])){
+    header('Location: b_page.php');
+}
 $s = 1;
 $k = 1;
 ?>
@@ -107,6 +113,10 @@ $k = 1;
     <label for="data">Data:</label>
     <textarea name="dta"></textarea>
     <input type="submit" value="Add new user" name="go"/>
+</form>
+<form method="post" target="_self" id="gb-form">
+    <input type="submit" name="login" value="Go back">
+    <input type="submit" name="main" value="Go to main page">
 </form>
 </body>
 </html>
