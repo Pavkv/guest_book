@@ -27,6 +27,14 @@ class GuestBook {
     return $this->stmt->fetchall(PDO::FETCH_NAMED);
   }
 
+  function get2 ($pid) {
+      $this->stmt = $this->pdo->prepare(
+          "SELECT * FROM users WHERE user_id=?"
+      );
+      $this->stmt->execute([$pid]);
+      return $this->stmt->fetchall(PDO::FETCH_NAMED);
+  }
+
   function save($pid, $name, $comment, $date=null) {
     if ($date==null) { $date = date("Y-m-d H:i:s"); }
     try {
