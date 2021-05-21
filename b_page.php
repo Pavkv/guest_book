@@ -55,8 +55,8 @@ $f = 0;
                     <?php $entries2 = $_GB->get2(1);
                     if (count($entries2)>0) { foreach ($entries2 as $e2) {
                     if ($e['name'] == $nm || $e2['data'] == 'admin') {?>
-                        <button type="submit" class="deletebutton" name="delete" value="<?php echo $k?>"></button>
-                        <button type="submit" class="editbutton" name="edit" value="<?php echo $k?>"></button>
+                        <button type="submit" class="deletebutton" name="delete" style="position: relative; left: 1170px;" value="<?php echo $k?>"></button>
+                        <button type="submit" class="editbutton" name="edit" style="position: relative; left: 1120px;" value="<?php echo $k?>"></button>
                     <?php }}}?>
                     <div class="gb-datetime"><?=$e['datetime']?></div>
                     <div class="gb-name">
